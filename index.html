@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sangam — Find your people</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    p.tagline {
+      font-size: 1.25rem;
+      color: #c9dde2;
+      margin-bottom: 40px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .feature {
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .feature:nth-child(1) { background: #e63946; }
+    .feature:nth-child(2) { background: #2a9d8f; }
+    .feature:nth-child(3) { background: #f4a261; }
+    .feature h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .feature p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 24px;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      25% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sangam</h1>
+    <p class="tagline">Find people nearby who want to do what you want to do.</p>
+
+    <div class="features">
+      <div class="feature">
+        <h3>🏃 Activities</h3>
+        <p>Sports, hobbies, hangouts — find or start one nearby.</p>
+      </div>
+      <div class="feature">
+        <h3>👥 Groups</h3>
+        <p>Connect over shared interests, alumni ties, or life stage.</p>
+      </div>
+      <div class="feature">
+        <h3>💬 Real Connections</h3>
+        <p>Chat, plan, and meet up — all in one place.</p>
+      </div>
+    </div>
+
+    <span class="badge">Coming soon to Bengaluru</span>
+  </div>
+</body>
+</html>
