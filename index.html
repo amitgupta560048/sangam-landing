@@ -341,15 +341,18 @@
       align-items: center;
     }
     .qr-frame {
+      display: block;
       width: 176px;
       height: 176px;
       padding: 14px;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 18px;
+      transition: border-color 220ms ease, transform 220ms ease;
     }
+    .qr-frame:hover { border-color: rgba(198,255,61,0.5); transform: translateY(-3px); }
     .qr-frame svg { width: 100%; height: 100%; }
-    .qr-frame svg rect.mod { fill: var(--ink); }
+    @media (prefers-reduced-motion: reduce) { .qr-frame { transition: none; } }
     .qr-caption {
       margin-top: 12px;
       font-family: var(--mono);
@@ -363,15 +366,19 @@
     .link-placeholder {
       font-family: var(--mono);
       font-size: 0.95rem;
-      color: var(--muted);
-      border: 1px dashed var(--line);
+      color: var(--ink);
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 14px 20px;
       display: inline-flex;
       align-items: center;
       gap: 2px;
+      text-decoration: none;
+      transition: border-color 220ms ease, background 220ms ease;
     }
+    .link-placeholder:hover { border-color: var(--lime); background: rgba(198,255,61,0.08); }
     .link-placeholder .path { color: var(--lime); }
+    @media (prefers-reduced-motion: reduce) { .link-placeholder { transition: none; } }
     .platform-tags { display: flex; gap: 10px; flex-wrap: wrap; }
     .platform-tags span {
       font-family: var(--mono);
@@ -515,15 +522,17 @@
 
       <div class="download-grid">
         <div>
-          <div class="qr-frame" id="qrFrame" aria-hidden="true"></div>
-          <p class="qr-caption">Placeholder — the real code lands here before launch, and won't need to change after.</p>
+          <a class="qr-frame" href="https://getsangat.in/download" aria-label="Scan or click to download the Fyt Android app">
+            <svg viewBox="0 0 31 31" shape-rendering="crispEdges"><path stroke="#F5F5F0" d="M1 1.5h7m1 0h1m1 0h1m1 0h4m2 0h2m2 0h7M1 2.5h1m5 0h1m1 0h2m1 0h2m4 0h4m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h3m2 0h2m1 0h1m1 0h2m2 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h2m2 0h1m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h2m2 0h6M2 9.5h2m1 0h1m1 0h2m4 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h5M1 10.5h5m7 0h2m3 0h1m2 0h3m3 0h1m1 0h1M2 11.5h1m4 0h1m1 0h1m1 0h3m3 0h3m1 0h1m3 0h1m2 0h2M3 12.5h2m3 0h2m1 0h3m1 0h1m2 0h6m4 0h1M1 13.5h2m2 0h3m1 0h2m1 0h2m1 0h2m1 0h1m1 0h2m1 0h2M1 14.5h1m2 0h1m3 0h1m1 0h2m1 0h2m1 0h1m1 0h1m2 0h4m3 0h2M1 15.5h2m4 0h1m1 0h1m1 0h2m1 0h4m4 0h1m1 0h1m2 0h1m1 0h1M4 16.5h3m1 0h1m2 0h1m1 0h1m4 0h1m2 0h1m1 0h2m3 0h1M3 17.5h1m1 0h1m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h2M5 18.5h1m5 0h3m1 0h4m2 0h1m1 0h1m2 0h4M1 19.5h1m1 0h5m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m1 0h1m1 0h4M2 20.5h2m4 0h1m2 0h1m2 0h2m1 0h3m1 0h1m1 0h1m1 0h1M1 21.5h1m2 0h1m1 0h2m2 0h4m2 0h3m1 0h6m2 0h1M9 22.5h1m2 0h2m1 0h1m1 0h1m2 0h2m3 0h1m3 0h1M1 23.5h7m1 0h3m1 0h3m2 0h1m1 0h2m1 0h1m1 0h1m1 0h3M1 24.5h1m5 0h1m5 0h1m1 0h1m1 0h1m3 0h1m3 0h1M1 25.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m5 0h6m2 0h1M1 26.5h1m1 0h3m1 0h1m2 0h1m1 0h5m4 0h2m2 0h1m1 0h1M1 27.5h1m1 0h3m1 0h1m1 0h3m6 0h1m1 0h1m3 0h2m3 0h1M1 28.5h1m5 0h1m1 0h1m1 0h6m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1M1 29.5h7m3 0h1m1 0h1m1 0h1m1 0h2m1 0h3m2 0h1m2 0h2"/></svg>
+          </a>
+          <p class="qr-caption">Scan to download the Android app. This code is permanent — it always resolves to the latest build.</p>
         </div>
 
         <div class="download-panel">
-          <span class="link-placeholder">getfyt.in<span class="path">/download</span></span>
+          <a class="link-placeholder" href="https://getsangat.in/download">getsangat.in<span class="path">/download</span></a>
           <div class="platform-tags">
             <span>iOS — coming soon</span>
-            <span>Android — coming soon</span>
+            <span>Android — APK, direct download</span>
           </div>
           <p class="permanence-note"><b>This link and QR code are built to never expire.</b> They point to a page we control, which redirects to wherever the app actually lives — so nothing printed or shared ever needs to be reissued, even after launch.</p>
         </div>
@@ -566,71 +575,6 @@
       }
       fillTrack('tickerCats', categories);
       fillTrack('tickerEvents', events);
-
-      // Visual stand-in only, not a scannable code — same finder-pattern
-      // structure real QR codes use, filled with deterministic pseudo-noise
-      // so it reads as "QR code" rather than a random grid.
-      function buildFakeQR(id, grid) {
-        var container = document.getElementById(id);
-        if (!container) return;
-        var NS = 'http://www.w3.org/2000/svg';
-        var svg = document.createElementNS(NS, 'svg');
-        svg.setAttribute('viewBox', '0 0 ' + grid + ' ' + grid);
-        svg.setAttribute('role', 'img');
-        svg.setAttribute('aria-label', 'Placeholder QR code, not yet active');
-
-        var cells = [];
-        for (var y = 0; y < grid; y++) cells.push(new Array(grid).fill(0));
-
-        function setBlock(x0, y0, size, val) {
-          for (var y = y0; y < y0 + size; y++) {
-            for (var x = x0; x < x0 + size; x++) {
-              if (x >= 0 && x < grid && y >= 0 && y < grid) cells[y][x] = val;
-            }
-          }
-        }
-        function finder(x0, y0) {
-          setBlock(x0, y0, 7, 1);
-          setBlock(x0 + 1, y0 + 1, 5, 0);
-          setBlock(x0 + 2, y0 + 2, 3, 1);
-        }
-        finder(0, 0);
-        finder(grid - 7, 0);
-        finder(0, grid - 7);
-
-        function inFinderZone(x, y) {
-          return (x < 8 && y < 8) || (x >= grid - 8 && y < 8) || (x < 8 && y >= grid - 8);
-        }
-
-        var seed = 42;
-        function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
-
-        for (var y = 0; y < grid; y++) {
-          for (var x = 0; x < grid; x++) {
-            if (inFinderZone(x, y)) continue;
-            cells[y][x] = rand() > 0.56 ? 1 : 0;
-          }
-        }
-        for (var i = 8; i < grid - 8; i++) {
-          cells[6][i] = i % 2 === 0 ? 1 : 0;
-          cells[i][6] = i % 2 === 0 ? 1 : 0;
-        }
-
-        for (var y2 = 0; y2 < grid; y2++) {
-          for (var x2 = 0; x2 < grid; x2++) {
-            if (!cells[y2][x2]) continue;
-            var rect = document.createElementNS(NS, 'rect');
-            rect.setAttribute('x', x2);
-            rect.setAttribute('y', y2);
-            rect.setAttribute('width', 1);
-            rect.setAttribute('height', 1);
-            rect.setAttribute('class', 'mod');
-            svg.appendChild(rect);
-          }
-        }
-        container.appendChild(svg);
-      }
-      buildFakeQR('qrFrame', 21);
 
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var revealEls = document.querySelectorAll('.reveal');
