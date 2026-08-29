@@ -3,92 +3,650 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fyt — Find your people</title>
+  <meta name="description" content="Fyt helps you find your Toli — people near you who want to do the same things you do. Live across India." />
+  <meta name="theme-color" content="#0A0A0A" />
+  <title>Find Your Toli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0A0A0A;
+      --surface: #1A1A1A;
+      --surface-2: #222222;
+      --ink: #F5F5F0;
+      --muted: #9A9A9A;
+      --muted-2: #6E6E6E;
+      --line: #2E2E2E;
+      --lime: #C6FF3D;
+      --pink: #FF3D7A;
+      --saffron: #FF9933;
+      --india-green: #138808;
+
+      --display: 'Rajdhani', 'Arial Narrow', sans-serif;
+      --body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #000000;
-      color: #ffffff;
-      min-height: 100vh;
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    img, svg { display: block; max-width: 100%; }
+
+    :focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 3px;
+    }
+
+    .wrap {
+      width: min(1080px, 100% - 48px);
+      margin-inline: auto;
+    }
+
+    /* ---------- brandmark ---------- */
+    .brandmark {
+      position: fixed;
+      top: 22px;
+      left: 0;
+      right: 0;
+      z-index: 20;
       display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .brandmark .wrap { display: flex; align-items: flex-start; justify-content: space-between; }
+    .logo-mark { display: inline-flex; flex-direction: column; gap: 4px; pointer-events: auto; }
+    .logo-mark .logo {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .tricolor {
+      display: block;
+      width: 100%;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+        var(--saffron) 0 33.33%,
+        #FFFFFF 33.33% 66.66%,
+        var(--india-green) 66.66% 100%);
+    }
+    .brandmark .flag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      text-align: center;
+      padding: 120px 0 64px;
+      gap: 28px;
     }
-    .container {
-      max-width: 600px;
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pink);
+      border: 1px solid rgba(255, 61, 122, 0.4);
+      background: rgba(255, 61, 122, 0.08);
+      border-radius: 999px;
+      padding: 8px 18px;
+    }
+
+    h1.headline {
+      font-family: var(--display);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: clamp(2.8rem, 9vw, 6.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+      max-width: 16ch;
+    }
+    h1.headline .accent {
+      color: var(--lime);
+      position: relative;
+      display: inline-block;
+    }
+    h1.headline .accent svg {
+      position: absolute;
+      left: 2%;
+      bottom: -0.11em;
+      width: 96%;
+      height: 0.22em;
+      overflow: visible;
+    }
+    h1.headline .accent path {
+      fill: none;
+      stroke: var(--pink);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-dasharray: 340;
+      stroke-dashoffset: 340;
+      animation: draw 900ms 500ms cubic-bezier(.65,0,.35,1) forwards;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      h1.headline .accent path { animation: none; stroke-dashoffset: 0; }
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .gloss {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 46ch;
+    }
+    .gloss i { color: var(--ink); font-style: normal; font-weight: 600; }
+    .gloss .ipa { color: var(--muted-2); }
+
+    p.tagline {
+      font-family: var(--body);
+      font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+      font-weight: 500;
+      color: var(--ink);
+      max-width: 34ch;
+      text-wrap: balance;
+    }
+    p.tagline .accent { color: var(--lime); }
+
+    .scrollcue {
+      margin-top: 12px;
+      width: 1px;
+      height: 34px;
+      background: linear-gradient(var(--line), transparent);
+      position: relative;
+    }
+    .scrollcue::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -2px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: fall 1.8s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) { .scrollcue::after { animation: none; top: 20px; } }
+    @keyframes fall {
+      0% { top: 0; opacity: 0; }
+      20% { opacity: 1; }
+      100% { top: 30px; opacity: 0; }
+    }
+
+    /* ---------- ticker ---------- */
+    .ticker-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ticker-row { overflow: hidden; }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      gap: 14px;
+      animation: scroll-left 42s linear infinite;
+    }
+    .ticker-row.reverse .ticker-track { animation-name: scroll-right; animation-duration: 52s; }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      .ticker-row { overflow-x: auto; }
+    }
+    @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 9px 18px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .ticker-row:nth-child(1) .chip:nth-child(odd) { border-color: rgba(198,255,61,0.35); color: var(--ink); }
+    .ticker-row.reverse .chip:nth-child(even) { border-color: rgba(255,61,122,0.35); color: var(--ink); }
+
+    /* ---------- section shell ---------- */
+    section.block { padding: 108px 0; }
+    .kicker {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+    h2.section-title {
+      font-family: var(--display);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+      line-height: 1.02;
+      max-width: 18ch;
+      text-wrap: balance;
+    }
+    p.section-lede {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 52ch;
+      margin-top: 18px;
+    }
+    p.section-lede b { color: var(--ink); font-weight: 600; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 700ms ease, transform 700ms ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* ---------- how it works ---------- */
+    .steps {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .step {
+      background: var(--surface);
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .step .num {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--pink);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .step h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .step p { color: var(--muted); font-size: 0.94rem; }
+
+    /* ---------- categories ---------- */
+    .cat-cloud {
+      margin-top: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cat-chip {
+      font-family: var(--display);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.02rem;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+    .cat-chip:hover { transform: translateY(-3px); }
+    .cat-chip.lime { border-color: rgba(198,255,61,0.5); }
+    .cat-chip.lime:hover { background: var(--lime); color: var(--bg); }
+    .cat-chip.pink { border-color: rgba(255,61,122,0.5); }
+    .cat-chip.pink:hover { background: var(--pink); color: var(--bg); }
+    @media (prefers-reduced-motion: reduce) { .cat-chip { transition: none; } }
+
+    /* ---------- download ---------- */
+    .download-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .qr-frame {
+      width: 176px;
+      height: 176px;
+      padding: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .qr-frame svg { width: 100%; height: 100%; }
+    .qr-frame svg rect.mod { fill: var(--ink); }
+    .qr-caption {
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.02em;
+      color: var(--muted-2);
+      max-width: 176px;
       text-align: center;
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      letter-spacing: -1px;
-    }
-    p.tagline {
-      font-size: 1.25rem;
-      color: #c9dde2;
-      margin-bottom: 40px;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin-bottom: 40px;
-      text-align: left;
-    }
-    .feature {
+    .download-panel { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+    .link-placeholder {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--muted);
+      border: 1px dashed var(--line);
       border-radius: 12px;
-      padding: 20px;
+      padding: 14px 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
     }
-    .feature:nth-child(1) { background: #e63946; }
-    .feature:nth-child(2) { background: #2a9d8f; }
-    .feature:nth-child(3) { background: #f4a261; }
-    .feature h3 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-    .feature p {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.9);
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.15);
-      padding: 12px 32px;
+    .link-placeholder .path { color: var(--lime); }
+    .platform-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .platform-tags span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      border: 1px dashed var(--line);
       border-radius: 999px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-top: 24px;
-      animation: blink 1.2s infinite;
+      padding: 7px 14px;
     }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      25% { opacity: 0.3; }
+    .permanence-note { font-size: 0.92rem; color: var(--muted); max-width: 40ch; }
+    .permanence-note b { color: var(--ink); font-weight: 600; }
+
+    @media (max-width: 560px) {
+      .download-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .download-panel { align-items: center; }
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 40px;
+    }
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer .fine {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted-2);
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 640px) {
+      section.block { padding: 76px 0; }
+      .hero { padding-top: 110px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Fyt</h1>
-    <p class="tagline">Find people nearby who want to do what you want to do.</p>
 
-    <div class="features">
-      <div class="feature">
-        <h3>🏃 Activities</h3>
-        <p>Sports, hobbies, hangouts — find or start one nearby.</p>
-      </div>
-      <div class="feature">
-        <h3>👥 Groups</h3>
-        <p>Connect over shared interests, alumni ties, or life stage.</p>
-      </div>
-      <div class="feature">
-        <h3>💬 Real Connections</h3>
-        <p>Chat, plan, and meet up — all in one place.</p>
+  <div class="brandmark">
+    <div class="wrap">
+      <span class="logo-mark">
+        <span class="logo">FYT</span>
+        <span class="tricolor" aria-hidden="true"></span>
+      </span>
+      <span class="flag">Open across India</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">A Toli for everything</span>
+
+    <h1 class="headline">
+      Find Your<br />
+      <span class="accent">Toli
+        <svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M4,14 C60,2 140,2 196,14" />
+        </svg>
+      </span>.
+    </h1>
+
+    <p class="gloss"><i>toli</i> <span class="ipa">/ˈto·li/</span> — noun, Hindi: your crew; whoever's already down to show up.</p>
+
+    <p class="tagline">Find <span class="accent">Your Toli</span>, around you, who want to do what you want to do.</p>
+
+    <div class="scrollcue" aria-hidden="true"></div>
+  </section>
+
+  <div class="ticker-section" aria-hidden="true">
+    <div class="ticker-row">
+      <div class="ticker-track" id="tickerCats"></div>
+    </div>
+    <div class="ticker-row reverse">
+      <div class="ticker-track" id="tickerEvents"></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap reveal">
+      <p class="kicker">How Fyt works</p>
+      <h2 class="section-title">Three steps to your next Toli</h2>
+
+      <div class="steps">
+        <div class="step">
+          <span class="num">01</span>
+          <h3>Pick your things</h3>
+          <p>Not just "Sports" — Badminton. Not just "Culture" — Garba Nights. Pick as many, as specific, as you like.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h3>We find your Toli</h3>
+          <p>People near you who picked the same things and speak your language — not a stranger three states away.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h3>Show up, keep showing up</h3>
+          <p>Join a one-off plan or a recurring one that repeats every week. Chat, plan, rate — all in one place.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <span class="badge">Coming soon to Bengaluru</span>
-  </div>
+  <section class="block" style="background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="wrap reveal">
+      <p class="kicker">15 categories, no two Tolis alike</p>
+      <h2 class="section-title">Every Toli looks different</h2>
+      <p class="section-lede">From <b>6&nbsp;AM cricket nets</b> to <b>Tuesday-evening satsang</b> — if people already do it together, there's a Toli for it.</p>
+
+      <div class="cat-cloud">
+        <span class="cat-chip lime">Sports</span>
+        <span class="cat-chip pink">Cultural &amp; Festive</span>
+        <span class="cat-chip lime">Professional</span>
+        <span class="cat-chip pink">Religious / Spiritual</span>
+        <span class="cat-chip lime">Endurance Sports</span>
+        <span class="cat-chip pink">Food &amp; Culinary</span>
+        <span class="cat-chip lime">Hobbies &amp; Interests</span>
+        <span class="cat-chip pink">Community</span>
+        <span class="cat-chip lime">Learning &amp; Skills</span>
+        <span class="cat-chip pink">Life-stage &amp; Support</span>
+        <span class="cat-chip lime">Entertainment</span>
+        <span class="cat-chip pink">Investments</span>
+        <span class="cat-chip lime">Social Cause / Volunteering</span>
+        <span class="cat-chip pink">Travel</span>
+        <span class="cat-chip lime">Civic &amp; Local</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap reveal">
+      <p class="kicker">Get Fyt</p>
+      <h2 class="section-title">One app, all of India</h2>
+      <p class="section-lede">Pick your city, pick your things, find your Toli — anywhere in India.</p>
+
+      <div class="download-grid">
+        <div>
+          <div class="qr-frame" id="qrFrame" aria-hidden="true"></div>
+          <p class="qr-caption">Placeholder — the real code lands here before launch, and won't need to change after.</p>
+        </div>
+
+        <div class="download-panel">
+          <span class="link-placeholder">getfyt.in<span class="path">/download</span></span>
+          <div class="platform-tags">
+            <span>iOS — coming soon</span>
+            <span>Android — coming soon</span>
+          </div>
+          <p class="permanence-note"><b>This link and QR code are built to never expire.</b> They point to a page we control, which redirects to wherever the app actually lives — so nothing printed or shared ever needs to be reissued, even after launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="logo-mark">
+        <span class="logo">FYT</span>
+        <span class="tricolor" aria-hidden="true"></span>
+      </span>
+      <span class="fine">&copy; 2026 FYT &middot; FIND YOUR TOLI</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var categories = [
+        'Civic & Local', 'Community', 'Cultural & Festive', 'Endurance Sports', 'Entertainment',
+        'Food & Culinary', 'Hobbies & Interests', 'Investments', 'Learning & Skills',
+        'Life-stage & Support', 'Professional', 'Religious / Spiritual',
+        'Social Cause / Volunteering', 'Sports', 'Travel'
+      ];
+      var events = [
+        'Cricket', 'Garba Nights', 'Book Clubs', 'Trekking', 'Satsang/Kirtan/Bhajan',
+        'Stand-up Comedy', 'Startups', 'IPL/Match Watch-Parties', 'Badminton', 'Potlucks',
+        'Photography Walks', 'Board Games', 'Language Exchange', 'Blood Donation',
+        'Weekend Getaways', 'Alumni', 'New Parents', 'AI/ML', 'Pickleball', 'Karva Chauth',
+        'Open Mic', 'Yoga & Meditation'
+      ];
+
+      function fillTrack(id, items) {
+        var track = document.getElementById(id);
+        var doubled = items.concat(items);
+        track.innerHTML = doubled.map(function (label) {
+          return '<span class="chip">' + label + '</span>';
+        }).join('');
+      }
+      fillTrack('tickerCats', categories);
+      fillTrack('tickerEvents', events);
+
+      // Visual stand-in only, not a scannable code — same finder-pattern
+      // structure real QR codes use, filled with deterministic pseudo-noise
+      // so it reads as "QR code" rather than a random grid.
+      function buildFakeQR(id, grid) {
+        var container = document.getElementById(id);
+        if (!container) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 ' + grid + ' ' + grid);
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', 'Placeholder QR code, not yet active');
+
+        var cells = [];
+        for (var y = 0; y < grid; y++) cells.push(new Array(grid).fill(0));
+
+        function setBlock(x0, y0, size, val) {
+          for (var y = y0; y < y0 + size; y++) {
+            for (var x = x0; x < x0 + size; x++) {
+              if (x >= 0 && x < grid && y >= 0 && y < grid) cells[y][x] = val;
+            }
+          }
+        }
+        function finder(x0, y0) {
+          setBlock(x0, y0, 7, 1);
+          setBlock(x0 + 1, y0 + 1, 5, 0);
+          setBlock(x0 + 2, y0 + 2, 3, 1);
+        }
+        finder(0, 0);
+        finder(grid - 7, 0);
+        finder(0, grid - 7);
+
+        function inFinderZone(x, y) {
+          return (x < 8 && y < 8) || (x >= grid - 8 && y < 8) || (x < 8 && y >= grid - 8);
+        }
+
+        var seed = 42;
+        function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+
+        for (var y = 0; y < grid; y++) {
+          for (var x = 0; x < grid; x++) {
+            if (inFinderZone(x, y)) continue;
+            cells[y][x] = rand() > 0.56 ? 1 : 0;
+          }
+        }
+        for (var i = 8; i < grid - 8; i++) {
+          cells[6][i] = i % 2 === 0 ? 1 : 0;
+          cells[i][6] = i % 2 === 0 ? 1 : 0;
+        }
+
+        for (var y2 = 0; y2 < grid; y2++) {
+          for (var x2 = 0; x2 < grid; x2++) {
+            if (!cells[y2][x2]) continue;
+            var rect = document.createElementNS(NS, 'rect');
+            rect.setAttribute('x', x2);
+            rect.setAttribute('y', y2);
+            rect.setAttribute('width', 1);
+            rect.setAttribute('height', 1);
+            rect.setAttribute('class', 'mod');
+            svg.appendChild(rect);
+          }
+        }
+        container.appendChild(svg);
+      }
+      buildFakeQR('qrFrame', 21);
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealEls = document.querySelectorAll('.reveal');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+    })();
+  </script>
 </body>
 </html>
